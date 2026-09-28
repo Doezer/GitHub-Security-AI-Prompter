@@ -1,0 +1,14 @@
+{
+  "manifest_version": 3,
+  "name": "GitHub Security AI Prompter",
+  "version": "1.0",
+  "description": "Extracts GitHub code scanning alerts into an AI-ready prompt.",
+  "action": {
+    "default_popup": "popup.html"
+  },
+  "permissions": [
+    "activeTab",
+    "scripting"
+  ],
+  "host_permissions": []
+}
