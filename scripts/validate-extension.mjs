@@ -1,4 +1,4 @@
-import { readFile } from 'node:fs/promises';
+import { readFile, access } from 'node:fs/promises';
 import { fileURLToPath } from 'node:url';
 import path from 'node:path';
 
@@ -28,6 +28,13 @@ assert(manifest.action?.default_popup === 'popup.html', 'manifest.json must poin
 assert(Array.isArray(manifest.permissions) && manifest.permissions.includes('activeTab'), 'manifest.json must request activeTab.');
 assert(Array.isArray(manifest.permissions) && manifest.permissions.includes('scripting'), 'manifest.json must request scripting.');
 assert(!manifest.host_permissions || manifest.host_permissions.length === 0, 'manifest.json must not require host permissions; activeTab should cover supported pages.');
+
+for (const size of ['16', '32', '48', '128']) {
+  const icon = manifest.icons?.[size];
+  assert(icon, `manifest.json must declare a ${size}px icon.`);
+  assert(manifest.action?.default_icon?.[size] === icon, `manifest.json action.default_icon must include ${size}px.`);
+  await access(path.join(rootDir, icon)).catch(() => assert(false, `Icon file ${icon} is missing.`));
+}
 
 assert(/<html[^>]*lang="en"/i.test(popupHtml), 'popup.html must declare a document language.');
 assert(/<title>GitHub Security AI Prompter<\/title>/i.test(popupHtml), 'popup.html must include a title.');

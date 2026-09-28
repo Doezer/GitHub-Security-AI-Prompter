@@ -55,13 +55,13 @@ git clone https://github.com/Doezer/GitHub-Security-AI-Prompter.git
 - **GitHub's DOM is not a public API.** The extractor matches the current
   `ul.js-alert-list` markup; selector fixes after a redesign are welcome.
 - Only `github.com` is supported (not GitHub Enterprise Server).
-- No toolbar icons are shipped.
 
 ## Repository layout
 
 | Path | Purpose |
 | --- | --- |
 | `manifest.json` | Manifest V3 configuration. |
+| `icons/` | Toolbar icons (`icon.svg` is the source, PNGs at 16/32/48/128). |
 | `popup.html` | The popup UI. |
 | `popup.js` | Page guard, injected `extractSecurityAlerts` extractor and prompt formatting. |
 | `scripts/validate-extension.mjs` | Sanity checks, also run in CI. |
